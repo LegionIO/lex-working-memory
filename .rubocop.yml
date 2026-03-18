@@ -1,6 +1,10 @@
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.4
+  SuggestExtensions: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
 
 Layout/LineLength:
   Max: 160

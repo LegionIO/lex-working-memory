@@ -32,6 +32,32 @@ RSpec.describe Legion::Extensions::WorkingMemory::Helpers::Buffer do
       expect(item.tags).to eq(%i[important work])
     end
 
+    it 'rejects invalid buffer_type' do
+      result = buffer.store(content: 'bad type', buffer_type: :tactile)
+      expect(result).to be_nil
+      expect(buffer.size).to eq(0)
+    end
+
+    it 'rejects invalid priority' do
+      result = buffer.store(content: 'bad priority', priority: :urgent)
+      expect(result).to be_nil
+      expect(buffer.size).to eq(0)
+    end
+
+    it 'accepts all valid buffer types' do
+      constants::BUFFER_TYPES.each do |type|
+        item = buffer.store(content: "test #{type}", buffer_type: type)
+        expect(item).not_to be_nil
+      end
+    end
+
+    it 'accepts all valid priority levels' do
+      constants::PRIORITY_LEVELS.each_key do |priority|
+        item = buffer.store(content: "test #{priority}", priority: priority)
+        expect(item).not_to be_nil
+      end
+    end
+
     it 'evicts lowest-activation items when over capacity' do
       (constants::CAPACITY + constants::CHUNK_BONUS + 2).times do |i|
         buffer.store(content: "item #{i}", priority: :normal)

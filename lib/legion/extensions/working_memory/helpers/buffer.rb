@@ -12,6 +12,9 @@ module Legion
           end
 
           def store(content:, buffer_type: :episodic, priority: :normal, tags: [])
+            return nil unless Constants::BUFFER_TYPES.include?(buffer_type)
+            return nil unless Constants::PRIORITY_LEVELS.key?(priority)
+
             item = BufferItem.new(content: content, buffer_type: buffer_type, priority: priority, tags: tags)
             @items << item
             evict_if_over_capacity

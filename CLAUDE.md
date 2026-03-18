@@ -3,7 +3,7 @@
 **Level 3 Leaf Documentation**
 - **Parent**: `/Users/miverso2/rubymine/legion/extensions-agentic/CLAUDE.md`
 - **Gem**: `lex-working-memory`
-- **Version**: `0.1.0`
+- **Version**: `0.1.1`
 - **Namespace**: `Legion::Extensions::WorkingMemory`
 
 ## Purpose
@@ -113,3 +113,4 @@ All runners are in `Runners::WorkingMemory`. The `Client` includes this module a
 - `evict lowest-activation` on overflow means low-priority background items are pushed out by high-priority arrivals — this matches the capacity-limited nature of the model
 - `tick_decay` removes expired items in the same pass as decay — no separate GC step needed
 - `CONSOLIDATION_THRESHOLD = 0.8` ensures only items that have been rehearsed (activation boosted) qualify for consolidation; passively-held items decay away without being consolidated
+- `Buffer#store` validates `buffer_type` against `BUFFER_TYPES` and `priority` against `PRIORITY_LEVELS` — returns nil for invalid values
